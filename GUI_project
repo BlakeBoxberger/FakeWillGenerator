@@ -219,16 +219,22 @@ public class GUI_project extends JFrame {
     
     private void playerKilled (MouseEvent evt){
         int index = (int) playersalive.getSelectedIndex();
-        arrayListOfPlayers.swapPlayer(arrayListOfPlayers.getAlive().get(index), "KILLED");
-        playersalive.setListData(arrayListOfPlayers.getAlive().toArray());
-        playersdead.setListData(arrayListOfPlayers.getDead().toArray());
+        if(index != -1)
+        {
+            arrayListOfPlayers.swapPlayer(arrayListOfPlayers.getAlive().get(index), "KILLED");
+            playersalive.setListData(arrayListOfPlayers.getAlive().toArray());
+            playersdead.setListData(arrayListOfPlayers.getDead().toArray());
+        }
     }
     
     private void playerRevived (MouseEvent evt){
         int index = (int) playersdead.getSelectedIndex();
-        arrayListOfPlayers.swapPlayer(arrayListOfPlayers.getDead().get(index), "REVIVED");
-        playersalive.setListData(arrayListOfPlayers.getAlive().toArray());
-        playersdead.setListData(arrayListOfPlayers.getDead().toArray());
+        if(index != -1)
+        {
+            arrayListOfPlayers.swapPlayer(arrayListOfPlayers.getDead().get(index), "REVIVED");
+            playersalive.setListData(arrayListOfPlayers.getAlive().toArray());
+            playersdead.setListData(arrayListOfPlayers.getDead().toArray());
+        }
     }
     
     private void clearNameInput (MouseEvent evt){
