@@ -1,7 +1,7 @@
 /**
-*Text genereted by Simple GUI Extension for BlueJ
-*Main program coded by Uhmmmm
-*/
+ *Text genereted by Simple GUI Extension for BlueJ
+ *Main program coded by Uhmmmm
+ */
 import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,10 +15,11 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.border.Border;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.awt.datatransfer.*;
+import java.awt.Toolkit;
 
 
 public class GUI_project extends JFrame {
-
     private JComboBox combobox1;
     private JButton enterbutton;
     private JLabel playersAliveLabel;
@@ -30,6 +31,7 @@ public class GUI_project extends JFrame {
     private JList playersalive;
     private JList playersdead;
     private Players arrayListOfPlayers;
+    private JButton reset;
 
     //Constructor 
     public GUI_project(){
@@ -53,11 +55,10 @@ public class GUI_project extends JFrame {
         //Set methods for mouse events
         //Call defined methods        
         combobox1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                roleclaimSelected(actionEvent);
-            }
-        });
-
+                public void actionPerformed(ActionEvent actionEvent) {
+                    roleclaimSelected(actionEvent);
+                }
+            });
 
         enterbutton = new JButton();
         enterbutton.setBounds(145,300,90,35);
@@ -71,11 +72,10 @@ public class GUI_project extends JFrame {
         //Set methods for mouse events
         //Call defined methods
         enterbutton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                clickedEnter(evt);
-            }
-        });
-
+                public void mouseClicked(MouseEvent evt) {
+                    clickedEnter(evt);
+                }
+            });
 
         playersAliveLabel = new JLabel();
         playersAliveLabel.setBounds(37,2,90,25);
@@ -85,7 +85,7 @@ public class GUI_project extends JFrame {
         playersAliveLabel.setFont(new Font("sansserif",0,12));
         playersAliveLabel.setText("Players Alive");
         playersAliveLabel.setVisible(true);
-        
+
         playersDeadLabel = new JLabel();
         playersDeadLabel.setBounds(169,2,90,25);
         playersDeadLabel.setBackground(new Color(214,217,223));
@@ -101,7 +101,7 @@ public class GUI_project extends JFrame {
         lastwillgenerated.setForeground(new Color(0,0,0));
         lastwillgenerated.setEnabled(true);
         lastwillgenerated.setFont(new Font("sansserif",0,12));
-        lastwillgenerated.setText("Generated Last Will:");
+        lastwillgenerated.setText("");
         lastwillgenerated.setBorder(BorderFactory.createBevelBorder(1));
         lastwillgenerated.setVisible(true);
 
@@ -114,11 +114,11 @@ public class GUI_project extends JFrame {
         nameinput.setText("Enter names...");
         nameinput.setVisible(true);
         nameinput.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                clearNameInput(evt);
-            }
-        });
-        
+                public void mouseClicked(MouseEvent evt) {
+                    clearNameInput(evt);
+                }
+            });
+
         mynameinput = new JTextField();
         mynameinput.setBounds(283,1,210,25);
         mynameinput.setBackground(new Color(255,255,255));
@@ -128,10 +128,10 @@ public class GUI_project extends JFrame {
         mynameinput.setText("Type your name...");
         mynameinput.setVisible(true);
         mynameinput.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                clearMyNameInput(evt);
-            }
-        });
+                public void mouseClicked(MouseEvent evt) {
+                    clearMyNameInput(evt);
+                }
+            });
 
         nightsbutton = new JButton();
         nightsbutton.setBounds(361,300,45,35);
@@ -144,12 +144,28 @@ public class GUI_project extends JFrame {
         //Set methods for mouse events
         //Call defined methods
         nightsbutton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                addNights(evt);
-            }
-        });
+                public void mouseClicked(MouseEvent evt) {
+                    addNights(evt);
+                }
+            });
 
-
+        reset = new JButton();
+        reset.setBounds(409,300,60,35);
+        reset.setBackground(new Color(214,217,223));
+        reset.setForeground(new Color(0,0,0));
+        reset.setEnabled(true);
+        reset.setFont(new Font("sansserif",0,12));
+        reset.setText("Reset");
+        reset.setVisible(true);
+        //Set methods for mouse events
+        //Call defined methods
+        reset.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent evt) {
+                    resetGenerator(evt);
+                }
+            });
+    
+        
         playersalive = new JList();
         playersalive.setBounds(10,25,130,272);
         playersalive.setBackground(new Color(255,255,255));
@@ -158,10 +174,10 @@ public class GUI_project extends JFrame {
         playersalive.setFont(new Font("sansserif",0,12));
         playersalive.setVisible(true);
         playersalive.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                playerKilled(evt);
-            }
-        });
+                public void mouseClicked(MouseEvent evt) {
+                    playerKilled(evt);
+                }
+            });
 
         playersdead = new JList();
         playersdead.setBounds(147,25,130,272);
@@ -171,11 +187,11 @@ public class GUI_project extends JFrame {
         playersdead.setFont(new Font("sansserif",0,12));
         playersdead.setVisible(true);
         playersdead.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt1) {
-                playerRevived(evt1);
-            }
-        });
-
+                public void mouseClicked(MouseEvent evt1) {
+                    playerRevived(evt1);
+                }
+            });
+        
         //adding components to contentPane panel
         contentPane.add(combobox1);
         contentPane.add(enterbutton);
@@ -187,6 +203,7 @@ public class GUI_project extends JFrame {
         contentPane.add(nightsbutton);
         contentPane.add(playersalive);
         contentPane.add(playersdead);
+        contentPane.add(reset);
 
         //adding panel to JFrame and seting of window position and close operation
         this.add(contentPane);
@@ -194,29 +211,32 @@ public class GUI_project extends JFrame {
         this.setLocationRelativeTo(null);
         this.pack();
         this.setVisible(true);
-        
+
         //Creating Players object
         arrayListOfPlayers = new Players();
     }
-    
+
     //Method mouseClicked for combobox1
     private void roleclaimSelected (ActionEvent actionEvent) {
-            String roleclaim = (String)combobox1.getSelectedItem();
-            roleclaim = roleclaim.toUpperCase();
-            arrayListOfPlayers.setMyName(mynameinput.getText());
-            String nightsString = nightsbutton.getText();
-            int nights = Integer.parseInt(nightsbutton.getText().substring(1));
-            Roleclaim r = new Roleclaim();
-            r.claimRole(roleclaim, arrayListOfPlayers, nights);
-            String setJTextArea = "";
-            for(String line: r.getWill())
-            {
-                if(line != null)
-                    setJTextArea += line + "\n";
-            }
-            lastwillgenerated.setText(setJTextArea);
+        String roleclaim = (String)combobox1.getSelectedItem();
+        roleclaim = roleclaim.toUpperCase();
+        arrayListOfPlayers.setMyName(mynameinput.getText());
+        String nightsString = nightsbutton.getText();
+        int nights = Integer.parseInt(nightsbutton.getText().substring(1));
+        Roleclaim r = new Roleclaim();
+        r.claimRole(roleclaim, arrayListOfPlayers, nights);
+        String setJTextArea = "";
+        for(String line: r.getWill())
+        {
+            if(line != null)
+                setJTextArea += line + "\n";
+        }
+        StringSelection stringSelection = new StringSelection(setJTextArea);
+        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clpbrd.setContents(stringSelection, null);
+        lastwillgenerated.setText(setJTextArea + "\n\n Automatically copied to clipboard.");
     }
-    
+
     private void playerKilled (MouseEvent evt){
         int index = (int) playersalive.getSelectedIndex();
         if(index != -1)
@@ -226,7 +246,7 @@ public class GUI_project extends JFrame {
             playersdead.setListData(arrayListOfPlayers.getDead().toArray());
         }
     }
-    
+
     private void playerRevived (MouseEvent evt){
         int index = (int) playersdead.getSelectedIndex();
         if(index != -1)
@@ -236,40 +256,48 @@ public class GUI_project extends JFrame {
             playersdead.setListData(arrayListOfPlayers.getDead().toArray());
         }
     }
-    
+
     private void clearNameInput (MouseEvent evt){
         nameinput.setText("");
     }
-    
+
     private void clearMyNameInput (MouseEvent evt){
         mynameinput.setText("");
     }
 
-
     //Method mouseClicked for enterbutton
     private void clickedEnter (MouseEvent evt) {
-            String str = nameinput.getText();
-            nameinput.setText("");
-            arrayListOfPlayers.addPlayer(str);
-            playersalive.setListData(arrayListOfPlayers.getAlive().toArray());
+        String str = nameinput.getText();
+        nameinput.setText("");
+        arrayListOfPlayers.addPlayer(str);
+        playersalive.setListData(arrayListOfPlayers.getAlive().toArray());
     }
 
     //Method mouseClicked for nightsbutton
     private void addNights (MouseEvent evt) {
-            String str = nightsbutton.getText();
-            int intInSTR = Integer.parseInt(str.substring(1));
-            intInSTR++;
-            nightsbutton.setText("N" + intInSTR);
+        String str = nightsbutton.getText();
+        int intInSTR = Integer.parseInt(str.substring(1));
+        intInSTR++;
+        nightsbutton.setText("N" + intInSTR);
     }
-
-
-     public static void main(String[] args){
+    
+    private void resetGenerator (MouseEvent evt) {
+        nightsbutton.setText("N1");
+        arrayListOfPlayers = new Players();
+        playersalive.setListData(arrayListOfPlayers.getAlive().toArray());
+        playersdead.setListData(arrayListOfPlayers.getDead().toArray());
+        lastwillgenerated.setText("");
+        mynameinput.setText("Type your name...");
+        nameinput.setText("Enter names...");
+    }
+    
+    public static void main(String[] args){
         System.setProperty("swing.defaultlaf", "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new GUI_project();
-            }
-        });
+                public void run() {
+                    new GUI_project();
+                }
+            });
     }
 
 }
