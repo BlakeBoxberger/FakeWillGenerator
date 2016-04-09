@@ -223,18 +223,20 @@ public class GUI_project extends JFrame {
         arrayListOfPlayers.setMyName(mynameinput.getText());
         String nightsString = nightsbutton.getText();
         int nights = Integer.parseInt(nightsbutton.getText().substring(1));
-        Roleclaim r = new Roleclaim();
-        r.claimRole(roleclaim, arrayListOfPlayers, nights);
-        String setJTextArea = "";
-        for(String line: r.getWill())
+        if(1 <= arrayListOfPlayers.getAlive().size())
         {
-            if(line != null)
-                setJTextArea += line + "\n";
+            r.claimRole(roleclaim, arrayListOfPlayers, nights);
+            String setJTextArea = "";
+            for(String line: r.getWill())
+            {
+                if(line != null)
+                    setJTextArea += line + "\n";
+            }
+            StringSelection stringSelection = new StringSelection(setJTextArea);
+            Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clpbrd.setContents(stringSelection, null);
+            lastwillgenerated.setText(setJTextArea + "\n\n Automatically copied to clipboard.");
         }
-        StringSelection stringSelection = new StringSelection(setJTextArea);
-        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clpbrd.setContents(stringSelection, null);
-        lastwillgenerated.setText(setJTextArea + "\n\n Automatically copied to clipboard.");
     }
 
     private void playerKilled (MouseEvent evt){
