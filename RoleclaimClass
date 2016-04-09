@@ -210,12 +210,22 @@ public class Roleclaim
         will[3] = "N1: The curse is not real.";
         for(int rep = 2; rep <= nights; rep++)
         {
-            if((rep + 3) < 18 && rep == 3)
-                will[rep + 2] = "N3: " + arrayListOfPlayers.getRandomDeadPlayer() + " is salty.";
-            else if((rep + 3) < 18 && rep == 4)
-                will[rep + 2] = "N4: " + arrayListOfPlayers.getRandomDeadPlayer() + " is annoying.";
-            else if((rep + 3) < 18)
-                will[rep + 2] = "N" + rep + ": " + "Still no info.";
+            if(arrayListOfPlayers.getDead().size() <= 0)
+            {
+                if((rep + 3) < 18 && rep == 3)
+                    will[rep + 2] = "N3: I am still useless.";
+                else if((rep + 3) < 18 && rep == 4)
+                    will[rep + 2] = "N4: Wow this game is shit.";
+                else if((rep + 3) < 18)
+                    will[rep + 2] = "N" + rep + ": " + "Still no info.";
+            }
+            else
+                if((rep + 3) < 18 && rep == 3)
+                    will[rep + 2] = "N3: " + arrayListOfPlayers.getRandomDeadPlayer() + " is salty.";
+                else if((rep + 3) < 18 && rep == 4)
+                    will[rep + 2] = "N4: " + arrayListOfPlayers.getRandomDeadPlayer() + " is annoying.";
+                else if((rep + 3) < 18)
+                    will[rep + 2] = "N" + rep + ": " + "Still no info.";
         }
         return will;
     }
