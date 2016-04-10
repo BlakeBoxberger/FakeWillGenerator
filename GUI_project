@@ -134,7 +134,7 @@ public class GUI_project extends JFrame {
             });
 
         nightsbutton = new JButton();
-        nightsbutton.setBounds(361,300,45,35);
+        nightsbutton.setBounds(361,300,55,35);
         nightsbutton.setBackground(new Color(214,217,223));
         nightsbutton.setForeground(new Color(0,0,0));
         nightsbutton.setEnabled(true);
@@ -150,7 +150,7 @@ public class GUI_project extends JFrame {
             });
 
         reset = new JButton();
-        reset.setBounds(409,300,60,35);
+        reset.setBounds(419,300,60,35);
         reset.setBackground(new Color(214,217,223));
         reset.setForeground(new Color(0,0,0));
         reset.setEnabled(true);
