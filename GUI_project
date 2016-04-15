@@ -150,7 +150,7 @@ public class GUI_project extends JFrame {
             });
 
         reset = new JButton();
-        reset.setBounds(419,300,60,35);
+        reset.setBounds(419,300,70,35);
         reset.setBackground(new Color(214,217,223));
         reset.setForeground(new Color(0,0,0));
         reset.setEnabled(true);
